@@ -1,4 +1,4 @@
-package fsa_project.stocks;
+package fsa.stocks;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

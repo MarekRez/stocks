@@ -11,7 +11,8 @@
 	<groupId>fsa-project</groupId>
 	<artifactId>stocks</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>stocks</name>
+    <packaging>pom</packaging>
+    <name>stocks</name>
 	<description>Stocks project for FSA</description>
 	<url/>
 	<licenses>
@@ -20,7 +21,14 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
+    <modules>
+        <module>api-spec</module>
+		<module>domain</module>
+		<module>inbound-controller-ws</module>
+		<module>outbound-repository-jpa</module>
+		<module>springboot</module>
+	</modules>
+    <scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>

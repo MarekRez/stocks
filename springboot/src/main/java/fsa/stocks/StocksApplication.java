@@ -1,4 +1,4 @@
-package fsa_project.stocks;
+package fsa.stocks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
