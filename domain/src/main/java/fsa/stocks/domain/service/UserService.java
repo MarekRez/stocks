@@ -3,6 +3,8 @@ package fsa.stocks.domain.service;
 import fsa.stocks.domain.User;
 import fsa.stocks.domain.repository.UserRepository;
 
+import java.util.Optional;
+
 /**
  * Implements the UserFacade, providing the actual logic for user operations.
  */
@@ -20,7 +22,7 @@ public class UserService implements UserFacade {
     }
 
     @Override
-    public User get(String email) {
+    public Optional<User> get(String email) {
         return userRepository.findByEmail(email);
     }
 

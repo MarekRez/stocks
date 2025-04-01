@@ -5,6 +5,7 @@ import fsa.stocks.domain.enums.StockSymbol;
 import fsa.stocks.domain.repository.StockRepository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Implements the StockFacade, providing the actual logic for stock operations.
@@ -18,7 +19,7 @@ public class StockService implements StockFacade {
     }
 
     @Override
-    public Stock get(StockSymbol symbol) {
+    public Optional<Stock> get(StockSymbol symbol) {
         return stockRepository.findBySymbol(symbol);
     }
 

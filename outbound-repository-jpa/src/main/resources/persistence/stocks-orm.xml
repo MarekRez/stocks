@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+        xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        https://jakarta.ee/xml/ns/persistence/orm
+        https://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd"
+        version="3.0">
+
+    <!-- ================== USER ENTITY ================== -->
+    <entity class="fsa.stocks.domain.User" access="FIELD">
+        <table name="user_system"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="name">
+                <column name="name" nullable="false"/>
+            </basic>
+            <basic name="email">
+                <column name="email" nullable="false" unique="true"/>
+            </basic>
+            <basic name="role">
+                <column name="role" nullable="false"/>
+
+                <convert converter="fsa.stocks.jpa.converter.UserRoleConverter"/>
+
+            </basic>
+            <one-to-one name="investmentAccount" target-entity="fsa.stocks.domain.InvestmentAccount" fetch="LAZY" optional="false">
+                <join-column name="investment_account_id" referenced-column-name="id" nullable="false"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+            <one-to-one name="bankAccount" target-entity="fsa.stocks.domain.BankAccount" fetch="LAZY" optional="false">
+                <join-column name="bank_account_id" referenced-column-name="iban" nullable="false"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+        </attributes>
+    </entity>
+
+    <!-- ================== BANK ACCOUNT ENTITY ================== -->
+    <entity class="fsa.stocks.domain.BankAccount" access="FIELD">
+        <table name="bank_account"/>
+        <attributes>
+            <!-- Using IBAN as the primary key -->
+            <id name="iban">
+                <column name="iban" nullable="false"/>
+            </id>
+            <basic name="balance">
+                <column name="balance" precision="19" scale="4" nullable="false"/>
+            </basic>
+        </attributes>
+    </entity>
+
+    <!-- ================== INVESTMENT ACCOUNT ENTITY ================== -->
+    <entity class="fsa.stocks.domain.InvestmentAccount" access="FIELD">
+        <table name="investment_account"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="balance">
+                <column name="balance" precision="19" scale="4" nullable="false"/>
+            </basic>
+            <one-to-one name="portfolio" target-entity="fsa.stocks.domain.Portfolio" fetch="LAZY" optional="false">
+                <join-column name="portfolio_id" referenced-column-name="id" nullable="false"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-one>
+        </attributes>
+    </entity>
+
+    <!-- ================== PORTFOLIO ENTITY ================== -->
+    <entity class="fsa.stocks.domain.Portfolio" access="FIELD">
+        <table name="portfolio"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <!-- Use mapped-by to reference the owning side in StockHolding -->
+            <one-to-many name="holdings" mapped-by="portfolio" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+
+
+    <!-- ================== STOCKHOLDING ENTITY ================== -->
+    <entity class="fsa.stocks.domain.StockHolding" access="FIELD">
+        <table name="stock_holding"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="sharesOwned">
+                <column name="shares_owned" nullable="false"/>
+            </basic>
+            <!-- Many-to-one back to Portfolio -->
+            <many-to-one name="portfolio" target-entity="fsa.stocks.domain.Portfolio" fetch="LAZY" optional="false">
+                <join-column name="portfolio_id" referenced-column-name="id" nullable="false"/>
+            </many-to-one>
+            <!-- Many-to-one relationship to Stock -->
+            <many-to-one name="stock" target-entity="fsa.stocks.domain.Stock" fetch="LAZY" optional="false">
+                <join-column name="stock_id" referenced-column-name="id" nullable="false"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+
+    <!-- ================== STOCK ENTITY ================== -->
+    <entity class="fsa.stocks.domain.Stock" access="FIELD">
+        <table name="stock"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="symbol">
+                <column name="symbol" nullable="false"/>
+
+                <convert converter="fsa.stocks.jpa.converter.StockSymbolConverter"/>
+
+            </basic>
+            <basic name="currency">
+                <column name="currency" nullable="false"/>
+            </basic>
+            <basic name="currentPrice">
+                <column name="current_price" precision="19" scale="4" nullable="false"/>
+            </basic>
+            <basic name="volatility">
+                <column name="volatility" nullable="false"/>
+            </basic>
+            <basic name="dividendYield">
+                <column name="dividend_yield" nullable="false"/>
+            </basic>
+            <basic name="expectedReturn">
+                <column name="expected_return" nullable="false"/>
+            </basic>
+        </attributes>
+    </entity>
+
+    <entity class="fsa.stocks.domain.Transaction" access="FIELD">
+        <table name="transaction"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <!-- Basic mappings first -->
+            <basic name="type">
+                <column name="type" nullable="false"/>
+                <convert converter="fsa.stocks.jpa.converter.TransactionTypeConverter"/>
+            </basic>
+            <basic name="amount">
+                <column name="amount" precision="19" scale="4" nullable="false"/>
+
+            </basic>
+            <basic name="timestamp">
+                <column name="timestamp" nullable="false"/>
+                <temporal>TIMESTAMP</temporal>
+            </basic>
+            <!-- Then relationship mappings -->
+            <many-to-one name="user" target-entity="fsa.stocks.domain.User" fetch="LAZY" optional="false">
+                <join-column name="user_id" referenced-column-name="id" nullable="false"/>
+            </many-to-one>
+            <many-to-one name="stock" target-entity="fsa.stocks.domain.Stock" fetch="LAZY" optional="true">
+                <join-column name="stock_id" referenced-column-name="id" nullable="true"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+
+
+</entity-mappings>

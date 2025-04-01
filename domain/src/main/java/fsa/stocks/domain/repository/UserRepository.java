@@ -2,12 +2,13 @@ package fsa.stocks.domain.repository;
 
 import fsa.stocks.domain.User;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository {
     User read(long id);
-    Collection<User> readAll();
+    List<User> readAll();
     void create(User user);
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
     void update(User user);
 }

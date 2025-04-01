@@ -3,9 +3,9 @@ package fsa.stocks.domain.repository;
 import fsa.stocks.domain.Transaction;
 import fsa.stocks.domain.User;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface TransactionRepository {
-    Collection<Transaction> findByUser(User user);
+    List<Transaction> findByUser(User user);
     void create(Transaction transaction);
 }

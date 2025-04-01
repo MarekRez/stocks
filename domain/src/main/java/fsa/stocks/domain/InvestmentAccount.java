@@ -7,6 +7,7 @@ import java.math.BigDecimal;
  */
 
 public class InvestmentAccount implements Account {
+    private Long id;
     private BigDecimal balance;
     private Portfolio portfolio;
 

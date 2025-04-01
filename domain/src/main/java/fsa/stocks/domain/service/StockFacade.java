@@ -4,6 +4,7 @@ import fsa.stocks.domain.Stock;
 import fsa.stocks.domain.enums.StockSymbol;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Exposes operations for managing Stock entities.
@@ -13,7 +14,7 @@ public interface StockFacade {
     /**
      * Retrieves a Stock by its symbol.
      */
-    Stock get(StockSymbol symbol);
+    Optional<Stock> get(StockSymbol symbol);
 
     /**
      * Returns all available stocks in the system.

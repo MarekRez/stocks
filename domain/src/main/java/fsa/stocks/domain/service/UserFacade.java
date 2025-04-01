@@ -2,6 +2,8 @@ package fsa.stocks.domain.service;
 
 import fsa.stocks.domain.User;
 
+import java.util.Optional;
+
 /**
  * Exposes operations for managing User entities.
  */
@@ -15,7 +17,7 @@ public interface UserFacade {
     /**
      * Retrieves a User by email address.
      */
-    User get(String email);
+    Optional<User> get(String email);
 
     /**
      * Persists a new User.

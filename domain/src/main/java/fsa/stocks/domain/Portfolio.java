@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 public class Portfolio {
+    private Long id;
     private List<StockHolding> holdings;
 
     // Constructors, getters, setters omitted

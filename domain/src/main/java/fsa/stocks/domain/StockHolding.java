@@ -5,8 +5,10 @@ package fsa.stocks.domain;
  */
 
 public class StockHolding {
+    private long id;
     private Stock stock;
     private double sharesOwned;
+    private Portfolio portfolio;
 
     // Constructors, getters, setters omitted
 }
