@@ -62,6 +62,7 @@
                         <configuration>
                             <!-- The location of your OpenAPI YAML file -->
                             <inputSpec>${project.basedir}/src/main/resources/openapi/stocks.yaml</inputSpec>
+                            <output>${project.build.directory}/generated-sources/openapi</output>
                             <!-- Generator name: 'spring' is used for generating Spring-based API code -->
                             <generatorName>spring</generatorName>
                             <!-- Library type to use; 'spring-boot' generates code ready for Spring Boot -->
