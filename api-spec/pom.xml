@@ -1,20 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                        http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- Parent POM reference: This keeps the parent minimal -->
     <parent>
         <groupId>fsa-project</groupId>
         <artifactId>stocks</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <!-- This module's artifact id -->
     <artifactId>api-spec</artifactId>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Version for the OpenAPI Generator Maven Plugin -->
+        <openapi-generator-maven-plugin.version>7.10.0</openapi-generator-maven-plugin.version>
     </properties>
 
+    <dependencies>
+        <!-- These dependencies are needed for the generated API code -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- OpenAPI Generator Plugin: Generates API interfaces and DTOs from your YAML spec -->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>stocks-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <!-- The location of your OpenAPI YAML file -->
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/stocks.yaml</inputSpec>
+                            <!-- Generator name: 'spring' is used for generating Spring-based API code -->
+                            <generatorName>spring</generatorName>
+                            <!-- Library type to use; 'spring-boot' generates code ready for Spring Boot -->
+                            <library>spring-boot</library>
+                            <!-- Package where the generated API interfaces will reside -->
+                            <apiPackage>fsa.stocks.rest.api</apiPackage>
+                            <!-- Package where the generated DTOs will reside -->
+                            <modelPackage>fsa.stocks.rest.dto</modelPackage>
+                            <!-- Append a suffix to model names if desired -->
+                            <modelNameSuffix>Dto</modelNameSuffix>
+                            <!-- Disable generating supporting files (like README, etc.) -->
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <!-- Generate only interfaces for APIs -->
+                                <interfaceOnly>true</interfaceOnly>
+                                <!-- Skip the default interface implementation -->
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <!-- Generate code for Spring Boot 3 -->
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <!-- Disable generating nullable properties -->
+                                <openApiNullable>false</openApiNullable>
+                                <!-- No additional documentation -->
+                                <documentationProvider>none</documentationProvider>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Spring Boot Maven Plugin: disable repackage for non-executable module -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- Build Helper Plugin: Adds the generated source directory to the project compile path -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

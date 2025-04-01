@@ -11,4 +11,17 @@
 
     <artifactId>domain</artifactId>
 
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin configuration to skip repackaging -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

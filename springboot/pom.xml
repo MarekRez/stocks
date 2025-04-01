@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                        http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- Inherit common configuration from the parent POM -->
     <parent>
         <groupId>fsa-project</groupId>
         <artifactId>stocks</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <!-- Unique identifier for this module -->
     <artifactId>springboot</artifactId>
 
     <dependencies>
+        <!-- Outbound-repository-jpa module: Provides the JPA repository implementations -->
         <dependency>
             <groupId>fsa-project</groupId>
             <artifactId>outbound-repository-jpa</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- Inbound-controller-ws module: Provides REST API controllers -->
+        <dependency>
+            <groupId>fsa-project</groupId>
+            <artifactId>inbound-controller-ws</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- PostgreSQL Driver: Required to connect to your PostgreSQL database -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin: Packages the application as an executable jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
