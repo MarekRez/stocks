@@ -8,7 +8,7 @@ import fsa.stocks.domain.enums.UserRole;
 
 public class User {
     private long id;
-    private String name;
+    private String name; // fixme: treba spravit firtname, lastname
     private String email; // unique
     private UserRole role;
     private InvestmentAccount investmentAccount;
