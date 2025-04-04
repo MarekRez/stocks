@@ -13,6 +13,8 @@ public interface UserMapper {
     // Converts a CreateUserRequestDto to a domain User
     User toEntity(CreateUserRequestDto dto);
 
+    User toEntity(UserDto dto);
+
     // Converts a domain User to a UserDto for API responses
     UserDto toDto(User user);
 
