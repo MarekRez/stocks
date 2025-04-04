@@ -4,7 +4,7 @@ import fsa.stocks.domain.Stock;
 import fsa.stocks.domain.enums.StockSymbol;
 import fsa.stocks.domain.repository.StockRepository;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,7 +24,7 @@ public class StockService implements StockFacade {
     }
 
     @Override
-    public Collection<Stock> listAll() {
+    public List<Stock> listAll() {
         return stockRepository.readAll();
     }
 

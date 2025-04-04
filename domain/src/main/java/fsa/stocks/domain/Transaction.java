@@ -3,6 +3,7 @@ package fsa.stocks.domain;
 import fsa.stocks.domain.enums.TransactionType;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ public class Transaction {
     private TransactionType type;
     private BigDecimal amount;
     private Stock stock; // optional
-    private Date timestamp;
+    private OffsetDateTime timestamp;
 
     public User getUser() {
         return user;
@@ -49,11 +50,11 @@ public class Transaction {
         this.stock = stock;
     }
 
-    public Date getTimestamp() {
+    public OffsetDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(OffsetDateTime timestamp) {
         this.timestamp = timestamp;
     }
 }

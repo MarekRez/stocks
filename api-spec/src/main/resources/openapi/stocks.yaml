@@ -78,6 +78,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Stock'
+
+  /stocks/{symbol}:
+    get:
+      summary: Retrieve a stock by its symbol
+      operationId: getStockBySymbol
+      tags:
+        - Stock
+      parameters:
+        - name: symbol
+          in: path
+          required: true
+          description: The stock symbol to retrieve (e.g., AAPL, GOOGL)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Stock details found successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stock'
+        '404':
+          description: Stock not found
+
   /transactions:
     get:
       summary: List transactions for a user
@@ -241,7 +265,7 @@ components:
           type: string
         currentPrice:
           type: number
-          format: double
+          format: BigDecimal
         volatility:
           type: number
           format: double

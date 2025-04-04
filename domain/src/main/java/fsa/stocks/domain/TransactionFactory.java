@@ -1,8 +1,10 @@
 package fsa.stocks.domain;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import fsa.stocks.domain.enums.TransactionType;
+import fsa.stocks.domain.exception.InvalidAmountException;
 
 public class TransactionFactory {
 
@@ -20,7 +22,7 @@ public class TransactionFactory {
             throw new IllegalArgumentException("Amount cannot be null");
         }
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Amount must be greater than zero");
+            throw new InvalidAmountException("Amount must be greater than zero");
         }
         // For BUY or SELL transactions, the stock must be provided
         if ((type == TransactionType.BUY || type == TransactionType.SELL) && stock == null) {
@@ -33,7 +35,7 @@ public class TransactionFactory {
         transaction.setType(type);
         transaction.setAmount(amount);
         transaction.setStock(stock);
-        transaction.setTimestamp(new Date()); // Current date and time
+        transaction.setTimestamp(OffsetDateTime.now());
 
         return transaction;
     }

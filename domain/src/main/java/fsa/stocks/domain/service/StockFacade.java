@@ -4,6 +4,7 @@ import fsa.stocks.domain.Stock;
 import fsa.stocks.domain.enums.StockSymbol;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,7 +20,7 @@ public interface StockFacade {
     /**
      * Returns all available stocks in the system.
      */
-    Collection<Stock> listAll();
+    List<Stock> listAll();
 
     /**
      * Persists a new Stock.
