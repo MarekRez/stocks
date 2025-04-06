@@ -12,7 +12,7 @@ public interface UserFacade {
     /**
      * Retrieves a User by its ID.
      */
-    //fixme: maybe change name to getUserById
+    // maybe change name to getUserById
     User get(long id);
 
     /**

@@ -32,56 +32,58 @@ public class Stock {
         // Default constructor
     }
 
+    // Getters for the fields
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public StockSymbol getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(StockSymbol symbol) {
-        this.symbol = symbol;
-    }
-
     public String getCurrency() {
         return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public BigDecimal getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(BigDecimal currentPrice) {
-        this.currentPrice = currentPrice;
-    }
-
     public double getVolatility() {
         return volatility;
-    }
-
-    public void setVolatility(double volatility) {
-        this.volatility = volatility;
     }
 
     public double getDividendYield() {
         return dividendYield;
     }
 
-    public void setDividendYield(double dividendYield) {
-        this.dividendYield = dividendYield;
-    }
-
     public double getExpectedReturn() {
         return expectedReturn;
+    }
+
+    // Setters for the fields
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setSymbol(StockSymbol symbol) {
+        this.symbol = symbol;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public void setCurrentPrice(BigDecimal currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+
+    public void setVolatility(double volatility) {
+        this.volatility = volatility;
+    }
+
+    public void setDividendYield(double dividendYield) {
+        this.dividendYield = dividendYield;
     }
 
     public void setExpectedReturn(double expectedReturn) {

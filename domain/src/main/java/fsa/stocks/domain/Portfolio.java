@@ -11,7 +11,29 @@ public class Portfolio {
     private Long id;
     private List<StockHolding> holdings;
 
-    // Constructors, getters, setters omitted
+    public Portfolio() {
+    }
+
+    public Portfolio(Long id, List<StockHolding> holdings) {
+        this.id = id;
+        this.holdings = holdings;
+    }
+
+    public List<StockHolding> getHoldings() {
+        return holdings;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setHoldings(List<StockHolding> holdings) {
+        this.holdings = holdings;
+    }
 
     public BigDecimal getTotalValue() {
         // TODO implement

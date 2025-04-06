@@ -2,7 +2,6 @@ package fsa.stocks.domain;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.Date;
 import fsa.stocks.domain.enums.TransactionType;
 import fsa.stocks.domain.exception.InvalidAmountException;
 

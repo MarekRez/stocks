@@ -1,4 +1,4 @@
-package fsa.stocks;
+package fsa.stocks.beans;
 
 import fsa.stocks.domain.TransactionFactory;
 import fsa.stocks.domain.repository.TransactionRepository;

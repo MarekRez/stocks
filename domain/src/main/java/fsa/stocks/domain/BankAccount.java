@@ -22,12 +22,12 @@ public class BankAccount implements Account {
         return iban;
     }
 
-    public void setIban(String iban) {
-        this.iban = iban;
-    }
-
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
     }
 
     public void setBalance(BigDecimal balance) {
@@ -44,7 +44,7 @@ public class BankAccount implements Account {
         // TODO implement
     }
 
-    private String generateIBAN() {
+    public String generateIBAN() {
         // TODO implement
         return null;
     }

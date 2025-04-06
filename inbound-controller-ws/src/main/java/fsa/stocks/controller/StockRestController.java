@@ -6,6 +6,8 @@ import fsa.stocks.domain.service.StockFacade;
 import fsa.stocks.rest.api.StocksApi;
 import fsa.stocks.rest.dto.StockDto;
 import fsa.stocks.mapper.StockMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
 
 @RestController
 public class StockRestController implements StocksApi {
+
+    private static final Logger log = LoggerFactory.getLogger(StockRestController.class);
 
     private final StockFacade stockFacade;
     private final StockMapper stockMapper;
@@ -41,6 +45,7 @@ public class StockRestController implements StocksApi {
     @Override
     public ResponseEntity<StockDto> createStock(StockDto stockDto) {
         Stock stock = stockMapper.toEntity(stockDto);
+        log.debug("Mapped Stock entity currency: {}", stock.getCurrency());
         stockFacade.create(stock);
         StockDto response = stockMapper.toDto(stock);
         return new ResponseEntity<>(response, HttpStatus.CREATED);

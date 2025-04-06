@@ -26,13 +26,13 @@
                 <convert converter="fsa.stocks.jpa.converter.UserRoleConverter"/>
 
             </basic>
-            <one-to-one name="investmentAccount" target-entity="fsa.stocks.domain.InvestmentAccount" fetch="LAZY" optional="false">
+            <one-to-one name="investmentAccount" target-entity="fsa.stocks.domain.InvestmentAccount" fetch="LAZY">
                 <join-column name="investment_account_id" referenced-column-name="id"/>
                 <cascade>
                     <cascade-all/>
                 </cascade>
             </one-to-one>
-            <one-to-one name="bankAccount" target-entity="fsa.stocks.domain.BankAccount" fetch="LAZY" optional="false">
+            <one-to-one name="bankAccount" target-entity="fsa.stocks.domain.BankAccount" fetch="LAZY">
                 <join-column name="bank_account_id" referenced-column-name="iban"/>
                 <cascade>
                     <cascade-all/>
@@ -74,44 +74,6 @@
         </attributes>
     </entity>
 
-    <!-- ================== PORTFOLIO ENTITY ================== -->
-    <entity class="fsa.stocks.domain.Portfolio" access="FIELD">
-        <table name="portfolio"/>
-        <attributes>
-            <id name="id">
-                <generated-value strategy="IDENTITY"/>
-            </id>
-            <!-- Use mapped-by to reference the owning side in StockHolding -->
-            <one-to-many name="holdings" mapped-by="portfolio" fetch="LAZY">
-                <cascade>
-                    <cascade-all/>
-                </cascade>
-            </one-to-many>
-        </attributes>
-    </entity>
-
-
-    <!-- ================== STOCKHOLDING ENTITY ================== -->
-    <entity class="fsa.stocks.domain.StockHolding" access="FIELD">
-        <table name="stock_holding"/>
-        <attributes>
-            <id name="id">
-                <generated-value strategy="IDENTITY"/>
-            </id>
-            <basic name="sharesOwned">
-                <column name="shares_owned" nullable="false"/>
-            </basic>
-            <!-- Many-to-one back to Portfolio -->
-            <many-to-one name="portfolio" target-entity="fsa.stocks.domain.Portfolio" fetch="LAZY" optional="false">
-                <join-column name="portfolio_id" referenced-column-name="id" nullable="false"/>
-            </many-to-one>
-            <!-- Many-to-one relationship to Stock -->
-            <many-to-one name="stock" target-entity="fsa.stocks.domain.Stock" fetch="LAZY" optional="false">
-                <join-column name="stock_id" referenced-column-name="id" nullable="false"/>
-            </many-to-one>
-        </attributes>
-    </entity>
-
     <!-- ================== STOCK ENTITY ================== -->
     <entity class="fsa.stocks.domain.Stock" access="FIELD">
         <table name="stock"/>
@@ -143,6 +105,7 @@
         </attributes>
     </entity>
 
+    <!-- ================== TRANSACTION ENTITY ================== -->
     <entity class="fsa.stocks.domain.Transaction" access="FIELD">
         <table name="transaction"/>
         <attributes>
@@ -172,5 +135,32 @@
         </attributes>
     </entity>
 
+    <!-- ================== PORTFOLIO ENTITY ================== -->
+    <entity class="fsa.stocks.domain.Portfolio" access="FIELD">
+        <table name="portfolio"/>
+        <attributes>
+            <id name="id">
+                <column name="id" nullable="false"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <element-collection name="holdings" target-class="fsa.stocks.domain.StockHolding">
+                <collection-table name="portfolio_stock_holdings">
+                    <join-column name="portfolio_id" referenced-column-name="id"/>
+                </collection-table>
+            </element-collection>
+        </attributes>
+    </entity>
+
+    <!-- ================== EMBEDDABLE: STOCKHOLDING ================== -->
+    <embeddable class="fsa.stocks.domain.StockHolding" access="FIELD">
+        <attributes>
+            <basic name="sharesOwned">
+                <column name="shares_owned"/>
+            </basic>
+            <many-to-one name="stock" target-entity="fsa.stocks.domain.Stock">
+                <join-column name="stock_id" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </embeddable>
 
 </entity-mappings>

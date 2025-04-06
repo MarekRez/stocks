@@ -25,20 +25,21 @@ public class InvestmentAccount implements Account {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
 
     public Portfolio getPortfolio() {
         return portfolio;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     public void setPortfolio(Portfolio portfolio) {

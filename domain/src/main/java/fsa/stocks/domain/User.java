@@ -25,6 +25,7 @@ public class User {
 
     public  User() {}
 
+    // Getters
     public long getId() {
         return id;
     }
@@ -47,6 +48,31 @@ public class User {
 
     public BankAccount getBankAccount() {
         return bankAccount;
+    }
+
+    // Setters
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public void setInvestmentAccount(InvestmentAccount investmentAccount) {
+        this.investmentAccount = investmentAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     public Portfolio viewPortfolio() {

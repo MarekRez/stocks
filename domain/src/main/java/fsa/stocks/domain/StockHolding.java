@@ -5,10 +5,32 @@ package fsa.stocks.domain;
  */
 
 public class StockHolding {
-    private long id;
     private Stock stock;
     private double sharesOwned;
-    private Portfolio portfolio;
 
-    // Constructors, getters, setters omitted
+
+    public StockHolding(Stock stock, double sharesOwned) {
+        this.stock = stock;
+        this.sharesOwned = sharesOwned;
+    }
+
+    public StockHolding() {
+        // Default constructor
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public double getSharesOwned() {
+        return sharesOwned;
+    }
+
+    public void setSharesOwned(double sharesOwned) {
+        this.sharesOwned = sharesOwned;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
 }

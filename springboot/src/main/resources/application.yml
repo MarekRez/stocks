@@ -23,3 +23,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     mapping-resources:
       persistence/stocks-orm.xml
+
+logging:
+  level:
+    fsa.stocks: DEBUG
+    org.hibernate.SQL: DEBUG
+    root: info
