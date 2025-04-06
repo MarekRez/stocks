@@ -1,4 +1,4 @@
-package mapper;
+package fsa.stocks.mapper;
 
 import fsa.stocks.domain.Transaction;
 import fsa.stocks.rest.dto.TransactionDto;

@@ -11,7 +11,39 @@ public class InvestmentAccount implements Account {
     private BigDecimal balance;
     private Portfolio portfolio;
 
-    // Constructors, getters, setters omitted
+    public InvestmentAccount(Long id, BigDecimal balance, Portfolio portfolio) {
+        this.id = id;
+        this.balance = balance;
+        this.portfolio = portfolio;
+    }
+
+    public InvestmentAccount() {
+        // Default constructor
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
+    }
 
     @Override
     public void deposit(BigDecimal amount) {

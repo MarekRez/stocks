@@ -1,12 +1,11 @@
-package controller;
+package fsa.stocks.controller;
 
 import fsa.stocks.domain.Stock;
 import fsa.stocks.domain.enums.StockSymbol;
 import fsa.stocks.domain.service.StockFacade;
 import fsa.stocks.rest.api.StocksApi;
 import fsa.stocks.rest.dto.StockDto;
-import fsa.stocks.rest.dto.StockHoldingDto;
-import mapper.StockMapper;
+import fsa.stocks.mapper.StockMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

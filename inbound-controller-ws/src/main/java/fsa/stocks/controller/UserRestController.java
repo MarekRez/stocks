@@ -1,11 +1,11 @@
-package controller;
+package fsa.stocks.controller;
 
 import fsa.stocks.domain.User;
 import fsa.stocks.domain.service.UserFacade;
 import fsa.stocks.rest.api.UsersApi;
 import fsa.stocks.rest.dto.CreateUserRequestDto;
 import fsa.stocks.rest.dto.UserDto;
-import mapper.UserMapper;
+import fsa.stocks.mapper.UserMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

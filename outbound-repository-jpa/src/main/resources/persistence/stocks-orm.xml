@@ -27,13 +27,13 @@
 
             </basic>
             <one-to-one name="investmentAccount" target-entity="fsa.stocks.domain.InvestmentAccount" fetch="LAZY" optional="false">
-                <join-column name="investment_account_id" referenced-column-name="id" nullable="false"/>
+                <join-column name="investment_account_id" referenced-column-name="id"/>
                 <cascade>
                     <cascade-all/>
                 </cascade>
             </one-to-one>
             <one-to-one name="bankAccount" target-entity="fsa.stocks.domain.BankAccount" fetch="LAZY" optional="false">
-                <join-column name="bank_account_id" referenced-column-name="iban" nullable="false"/>
+                <join-column name="bank_account_id" referenced-column-name="iban"/>
                 <cascade>
                     <cascade-all/>
                 </cascade>

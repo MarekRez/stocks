@@ -17,7 +17,76 @@ public class Stock {
     private double dividendYield;
     private double expectedReturn;
 
-    // Constructors, getters, setters omitted
+    public Stock(long id, StockSymbol symbol, String currency, BigDecimal currentPrice, double volatility,
+                 double dividendYield, double expectedReturn) {
+        this.id = id;
+        this.symbol = symbol;
+        this.currency = currency;
+        this.currentPrice = currentPrice;
+        this.volatility = volatility;
+        this.dividendYield = dividendYield;
+        this.expectedReturn = expectedReturn;
+    }
+
+    public Stock() {
+        // Default constructor
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public StockSymbol getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(StockSymbol symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public BigDecimal getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(BigDecimal currentPrice) {
+        this.currentPrice = currentPrice;
+    }
+
+    public double getVolatility() {
+        return volatility;
+    }
+
+    public void setVolatility(double volatility) {
+        this.volatility = volatility;
+    }
+
+    public double getDividendYield() {
+        return dividendYield;
+    }
+
+    public void setDividendYield(double dividendYield) {
+        this.dividendYield = dividendYield;
+    }
+
+    public double getExpectedReturn() {
+        return expectedReturn;
+    }
+
+    public void setExpectedReturn(double expectedReturn) {
+        this.expectedReturn = expectedReturn;
+    }
 
     public void updatePrice() {
         // TODO implement

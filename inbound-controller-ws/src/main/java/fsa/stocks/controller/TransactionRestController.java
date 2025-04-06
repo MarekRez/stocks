@@ -1,4 +1,4 @@
-package controller;
+package fsa.stocks.controller;
 
 public class TransactionRestController {
 }
