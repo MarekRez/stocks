@@ -1,6 +1,7 @@
 package fsa.stocks.domain;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 /**
  * Represents a user’s bank account.
@@ -45,7 +46,13 @@ public class BankAccount implements Account {
     }
 
     public String generateIBAN() {
-        // TODO implement
-        return null;
+        String characters = "0123456789000000";
+        StringBuilder iban = new StringBuilder("SK-");
+        Random rand = new Random();
+        for (int i = 0; i < 16; i++) {
+            int index = rand.nextInt(characters.length());
+            iban.append(characters.charAt(rand.nextInt(characters.length())));
+        }
+        return iban.toString();
     }
 }
