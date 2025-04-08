@@ -30,7 +30,11 @@ public class StockService implements StockFacade {
 
     @Override
     public void create(Stock stock) {
-        // Additional checks or logic before creating
+        // check if the stock already exists.
+        Optional<Stock> existingStock = stockRepository.findBySymbol(stock.getSymbol());
+        if (existingStock.isPresent()) {
+            throw new IllegalArgumentException("Stock with this symbol already exists");
+        }
         stockRepository.create(stock);
     }
 }
