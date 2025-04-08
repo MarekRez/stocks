@@ -1,12 +1,11 @@
-server:
-  port: 8443
-  ssl:
-    enabled: true
-    key-store: classpath:keystore.p12
-    key-store-password: changeit
-    key-store-type: PKCS12
-    key-alias: myalias
-
+#server:
+#  port: 8443
+#  ssl:
+#    enabled: true
+#    key-store: classpath:keystore.p12
+#    key-store-password: changeit
+#    key-store-type: PKCS12
+#    key-alias: myalias
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/stocks
@@ -23,6 +22,12 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     mapping-resources:
       persistence/stocks-orm.xml
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/FSA
+          jwk-set-uri: http://localhost:8081/realms/FSA/protocol/openid-connect/certs
 
 logging:
   level:
