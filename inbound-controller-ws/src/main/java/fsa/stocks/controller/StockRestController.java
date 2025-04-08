@@ -69,5 +69,4 @@ public class StockRestController implements StocksApi {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
 }
