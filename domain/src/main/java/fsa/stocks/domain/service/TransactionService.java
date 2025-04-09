@@ -4,7 +4,8 @@ import fsa.stocks.domain.Transaction;
 import fsa.stocks.domain.User;
 import fsa.stocks.domain.repository.TransactionRepository;
 
-import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Implements the TransactionFacade, providing logic for transaction operations.
@@ -17,14 +18,14 @@ public class TransactionService implements TransactionFacade {
         this.transactionRepository = transactionRepository;
     }
 
-    @Override
-    public void recordTransaction(Transaction transaction) {
-        // Additional validations, e.g. checking user balance, etc.
-        transactionRepository.create(transaction);
-    }
+//    @Override
+//    public void recordTransaction(Transaction transaction) {
+//        // Additional validations, e.g. checking user balance, etc.
+//        transactionRepository.create(transaction);
+//    }
 
     @Override
-    public Collection<Transaction> findByUser(User user) {
+    public List<Transaction> findByUser(User user) {
         return transactionRepository.findByUser(user);
     }
 }

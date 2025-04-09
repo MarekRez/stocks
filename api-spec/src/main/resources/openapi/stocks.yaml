@@ -108,13 +108,6 @@ paths:
       operationId: listTransactions
       tags:
         - Transaction
-      parameters:
-        - name: userId
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
         '200':
           description: List of transactions
@@ -124,20 +117,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Transaction'
-    post:
-      summary: Record a new transaction (buy, sell, deposit, withdrawal)
-      operationId: createTransaction
-      tags:
-        - Transaction
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Transaction'
-      responses:
-        '201':
-          description: Transaction recorded
+#    post:
+#      summary: Record a new transaction (buy, sell, deposit, withdrawal)
+#      operationId: createTransaction
+#      tags:
+#        - Transaction
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              $ref: '#/components/schemas/Transaction'
+#      responses:
+#        '201':
+#          description: Transaction recorded
   /portfolio:
     get:
       summary: Get the portfolio details for a user
