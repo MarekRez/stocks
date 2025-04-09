@@ -36,6 +36,7 @@ public class JwtDecoderConfiguration {
     }
 
     @Bean
+    @Profile("fallback")
     JwtDecoder jwtDecoder() {
         return token -> {
             try {
