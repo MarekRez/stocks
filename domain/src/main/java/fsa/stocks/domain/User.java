@@ -14,13 +14,12 @@ public class User {
     private InvestmentAccount investmentAccount;
     private BankAccount bankAccount;
 
-    public User(long id, String name, String email, UserRole role, InvestmentAccount investmentAccount, BankAccount bankAccount) {
-        this.id = id;
+    public User(String name, String email, UserRole role) {
         this.name = name;
         this.email = email;
         this.role = role;
-        this.investmentAccount = investmentAccount;
-        this.bankAccount = bankAccount;
+        this.investmentAccount = new InvestmentAccount();
+        this.bankAccount = new BankAccount();
     }
 
     public  User() {}

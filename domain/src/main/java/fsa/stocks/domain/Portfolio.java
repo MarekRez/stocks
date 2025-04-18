@@ -1,6 +1,7 @@
 package fsa.stocks.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,14 +10,9 @@ import java.util.List;
 
 public class Portfolio {
     private Long id;
-    private List<StockHolding> holdings;
+    private List<StockHolding> holdings = new ArrayList<>();
 
     public Portfolio() {
-    }
-
-    public Portfolio(Long id, List<StockHolding> holdings) {
-        this.id = id;
-        this.holdings = holdings;
     }
 
     public List<StockHolding> getHoldings() {

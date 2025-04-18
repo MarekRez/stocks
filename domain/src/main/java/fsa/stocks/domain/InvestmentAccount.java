@@ -11,14 +11,10 @@ public class InvestmentAccount implements Account {
     private BigDecimal balance;
     private Portfolio portfolio;
 
-    public InvestmentAccount(Long id, BigDecimal balance, Portfolio portfolio) {
-        this.id = id;
-        this.balance = balance;
-        this.portfolio = portfolio;
-    }
-
     public InvestmentAccount() {
-        // Default constructor
+//        this.balance = BigDecimal.ZERO;
+        this.balance = new BigDecimal(10000);
+        this.portfolio = new Portfolio();
     }
 
     public Long getId() {

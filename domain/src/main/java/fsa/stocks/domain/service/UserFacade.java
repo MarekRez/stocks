@@ -2,6 +2,7 @@ package fsa.stocks.domain.service;
 
 import fsa.stocks.domain.User;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,7 +22,22 @@ public interface UserFacade {
     Optional<User> get(String email);
 
     /**
+     * Retrieves all Users.
+     */
+    List<User> getAll();
+
+    /**
      * Persists a new User.
      */
     void create(User user);
+
+    /**
+     * Updates an existing User.
+     */
+    void update(User user);
+
+    /**
+     * Deletes a User by its ID.
+     */
+    void delete(long id);
 }

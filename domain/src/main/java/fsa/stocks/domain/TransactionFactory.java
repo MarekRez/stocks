@@ -2,6 +2,8 @@ package fsa.stocks.domain;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.Objects;
+
 import fsa.stocks.domain.enums.TransactionType;
 import fsa.stocks.domain.exception.InvalidAmountException;
 
@@ -9,17 +11,12 @@ public class TransactionFactory {
 
     public Transaction create(User user, TransactionType type, BigDecimal amount, Stock stock) {
         // Validate that the user is not null
-        if (user == null) {
-            throw new IllegalArgumentException("User cannot be null");
-        }
+        Objects.requireNonNull(user, "User cannot be null");
         // Validate that the transaction type is not null
-        if (type == null) {
-            throw new IllegalArgumentException("Transaction type cannot be null");
-        }
+        Objects.requireNonNull(type, "Transaction type cannot be null");
         // Validate that the amount is provided and greater than zero
-        if (amount == null) {
-            throw new IllegalArgumentException("Amount cannot be null");
-        }
+        Objects.requireNonNull(amount, "Amount cannot be null");
+
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new InvalidAmountException("Amount must be greater than zero");
         }

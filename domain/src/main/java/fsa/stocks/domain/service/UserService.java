@@ -8,6 +8,8 @@ import fsa.stocks.domain.repository.UserRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -19,6 +21,11 @@ public class UserService implements UserFacade {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userRepository.readAll();
     }
 
     @Override
@@ -38,22 +45,26 @@ public class UserService implements UserFacade {
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("User with this email already exists");
         }
-        // Create and initialize a BankAccount and InvestmentAccount
-        BankAccount bankAccount = new BankAccount();
-        bankAccount.setIban(bankAccount.generateIBAN());
-        bankAccount.setBalance(BigDecimal.ZERO);
-
-        user.setBankAccount(bankAccount);
-
-        InvestmentAccount investmentAccount = new InvestmentAccount();
-        investmentAccount.setBalance(BigDecimal.ZERO);
-
-        Portfolio portfolio = new Portfolio();
-        portfolio.setHoldings(new ArrayList<>());
-        investmentAccount.setPortfolio(portfolio);
-
-        user.setInvestmentAccount(investmentAccount);
 
         userRepository.create(user);
     }
+
+    @Override
+    public void update(User user) {
+        // check if the user exists.
+        User existingUser = userRepository.read(user.getId());
+        Objects.requireNonNull(existingUser, "User with this id does not exist");
+
+        userRepository.update(user);
+    }
+
+    @Override
+    public void delete(long id) {
+        // check if the user exists.
+        User existingUser = userRepository.read(id);
+        Objects.requireNonNull(existingUser, "User with this id does not exist");
+
+        userRepository.delete(id);
+    }
+
 }

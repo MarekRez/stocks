@@ -11,12 +11,10 @@ public class BankAccount implements Account {
     private String iban;
     private BigDecimal balance;
 
-    public BankAccount(String iban, BigDecimal balance) {
-        this.iban = iban;
-        this.balance = balance;
-    }
-
     public BankAccount() {
+        this.iban = generateIBAN();
+//        this.balance = BigDecimal.ZERO;
+        this.balance = new BigDecimal(10000);
     }
 
     public String getIban() {
