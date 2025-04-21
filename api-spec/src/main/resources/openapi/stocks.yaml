@@ -38,7 +38,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
+                  $ref: '#/components/schemas/ClientModel'
   /users/{id}:
     get:
       summary: Retrieve a user by ID
@@ -255,6 +255,43 @@ paths:
                 $ref: '#/components/schemas/SimulationResult'
 components:
   schemas:
+    ClientModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          description: The user’s full name
+        email:
+          type: string
+          format: email
+          description: The user’s email address
+        role:
+          type: string
+          enum:
+            - USER
+            - ADMIN
+          description: The user’s role in the system
+        iban:
+          type: string
+          description: The user’s bank account IBAN
+        bankAccountBalance:
+          type: number
+          format: double
+          description: The current balance of the user’s bank account
+        investmentAccountBalance:
+          type: number
+          format: double
+          description: The current balance of the user’s investment account
+      required:
+        - name
+        - email
+        - role
+        - iban
+        - bankAccountBalance
+        - investmentAccountBalance
     User:
       type: object
       properties:

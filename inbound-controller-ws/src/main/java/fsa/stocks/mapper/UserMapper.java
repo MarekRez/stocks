@@ -2,6 +2,7 @@ package fsa.stocks.mapper;
 
 import fsa.stocks.domain.User;
 import fsa.stocks.domain.enums.UserRole;
+import fsa.stocks.rest.dto.ClientModelDto;
 import fsa.stocks.rest.dto.CreateUserRequestDto;
 import fsa.stocks.rest.dto.UserDto;
 import org.mapstruct.Mapper;
@@ -29,6 +30,13 @@ public interface UserMapper {
         return new User(dto.getName(), dto.getEmail(), role);
     }
     User toEntity(UserDto dto);
+
+    // Converts a domain User to a ClientModelDto
+    // new mapping for the frontend model:
+    @Mapping(source = "bankAccount.iban",           target = "iban")
+    @Mapping(source = "bankAccount.balance", target = "bankAccountBalance")
+    @Mapping(source = "investmentAccount.balance", target = "investmentAccountBalance")
+    ClientModelDto toClientModel(User user);
 
     // Converts a domain User to a UserDto for API responses
     UserDto toDto(User user);

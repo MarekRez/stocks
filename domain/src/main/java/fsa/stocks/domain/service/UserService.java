@@ -4,6 +4,7 @@ import fsa.stocks.domain.BankAccount;
 import fsa.stocks.domain.InvestmentAccount;
 import fsa.stocks.domain.Portfolio;
 import fsa.stocks.domain.User;
+import fsa.stocks.domain.exception.UserNotFoundException;
 import fsa.stocks.domain.repository.UserRepository;
 
 import java.math.BigDecimal;
@@ -61,9 +62,10 @@ public class UserService implements UserFacade {
     @Override
     public void delete(long id) {
         // check if the user exists.
-        User existingUser = userRepository.read(id);
-        Objects.requireNonNull(existingUser, "User with this id does not exist");
-
+        User user = userRepository.read(id);
+        if (user == null) {
+            throw new UserNotFoundException(String.valueOf(id));
+        }
         userRepository.delete(id);
     }
 

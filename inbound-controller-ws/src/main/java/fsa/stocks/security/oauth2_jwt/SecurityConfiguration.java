@@ -2,6 +2,7 @@ package fsa.stocks.security.oauth2_jwt;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,6 +25,9 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, JwtDecoder jwtDecoder) throws Exception {
         return http
+                // Enabling CORS
+                .cors(Customizer.withDefaults())
+                // Disabling CSRF protection
                 .csrf(AbstractHttpConfigurer::disable)
                 // Configuration of rules for authorizing HTTP requests
                 .authorizeHttpRequests(this::configureAuthorizationRules)
