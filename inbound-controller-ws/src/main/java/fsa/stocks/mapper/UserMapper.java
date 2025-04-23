@@ -9,6 +9,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -27,7 +29,8 @@ public interface UserMapper {
         }
         // read the role out of the DTO, map the enum, and let the constructor wire up accounts
         UserRole role = UserRole.valueOf(dto.getRole().name());
-        return new User(dto.getName(), dto.getEmail(), role);
+        BigDecimal initBal = dto.getBankAccountBalance();
+        return new User(dto.getName(), dto.getEmail(), role, initBal);
     }
     User toEntity(UserDto dto);
 

@@ -13,7 +13,7 @@ public class InvestmentAccount implements Account {
 
     public InvestmentAccount() {
 //        this.balance = BigDecimal.ZERO;
-        this.balance = new BigDecimal(10000);
+        this.balance = new BigDecimal(0);
         this.portfolio = new Portfolio();
     }
 

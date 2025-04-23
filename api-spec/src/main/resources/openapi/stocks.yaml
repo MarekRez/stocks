@@ -321,6 +321,9 @@ components:
           type: string
         role:
           $ref: '#/components/schemas/UserRole'
+        bankAccountBalance:
+          type: number
+          format: bigDecimal
     UserRole:
       type: string
       enum:

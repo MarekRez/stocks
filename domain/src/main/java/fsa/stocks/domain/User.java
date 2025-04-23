@@ -2,6 +2,8 @@ package fsa.stocks.domain;
 
 import fsa.stocks.domain.enums.UserRole;
 
+import java.math.BigDecimal;
+
 /**
  * Represents a user in the system, with bank and investment accounts.
  */
@@ -20,6 +22,14 @@ public class User {
         this.role = role;
         this.investmentAccount = new InvestmentAccount();
         this.bankAccount = new BankAccount();
+    }
+
+    public User(String name, String email, UserRole role, BigDecimal balance) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        this.investmentAccount = new InvestmentAccount();
+        this.bankAccount = new BankAccount(balance);
     }
 
     public  User() {}
