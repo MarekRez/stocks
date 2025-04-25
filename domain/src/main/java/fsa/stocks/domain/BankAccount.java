@@ -1,5 +1,8 @@
 package fsa.stocks.domain;
 
+import fsa.stocks.domain.exception.InsufficientFundsException;
+import fsa.stocks.domain.exception.InvalidAmountException;
+
 import java.math.BigDecimal;
 import java.util.Random;
 
@@ -26,6 +29,7 @@ public class BankAccount implements Account {
         return iban;
     }
 
+    @Override
     public BigDecimal getBalance() {
         return balance;
     }
@@ -40,12 +44,29 @@ public class BankAccount implements Account {
 
     @Override
     public void deposit(BigDecimal amount) {
-        // TODO implement
+        validateAmount(amount);
+        balance = balance.add(amount);
     }
 
     @Override
     public void withdraw(BigDecimal amount) {
-        // TODO implement
+        validateAmount(amount);
+        if (balance.compareTo(amount) < 0) {
+            throw new InsufficientFundsException(
+                    "Cannot withdraw " + amount + " from bank account " + iban +
+                            " – balance is only " + balance);
+        }
+        balance = balance.subtract(amount);
+    }
+
+    private void validateAmount(BigDecimal amount) {
+        if (amount == null) {
+            throw new InvalidAmountException("Amount cannot be null");
+        }
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidAmountException(
+                    "Amount must be greater than zero, was: " + amount);
+        }
     }
 
     public String generateIBAN() {
@@ -53,7 +74,6 @@ public class BankAccount implements Account {
         StringBuilder iban = new StringBuilder("SK-");
         Random rand = new Random();
         for (int i = 0; i < 16; i++) {
-            int index = rand.nextInt(characters.length());
             iban.append(characters.charAt(rand.nextInt(characters.length())));
         }
         return iban.toString();

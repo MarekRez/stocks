@@ -253,8 +253,96 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SimulationResult'
+  /bank/deposit:
+    post:
+      summary: Deposit money into the user’s bank account
+      operationId: depositToBank
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amount'
+      responses:
+        '200':
+          description: The resulting transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+
+  /bank/withdraw:
+    post:
+      summary: Withdraw money from the user’s bank account
+      operationId: withdrawFromBank
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amount'
+      responses:
+        '200':
+          description: The resulting transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+
+  /investment/deposit:
+    post:
+      summary: Deposit money into the user’s investment account
+      operationId: depositToInvestment
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amount'
+      responses:
+        '200':
+          description: The resulting transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+
+  /investment/withdraw:
+    post:
+      summary: Withdraw money from the user’s investment account
+      operationId: withdrawFromInvestment
+      tags:
+        - Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Amount'
+      responses:
+        '200':
+          description: The resulting transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
 components:
   schemas:
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          description: The amount to deposit or withdraw; must be greater than zero
+      required:
+        - amount
     ClientModel:
       type: object
       properties:

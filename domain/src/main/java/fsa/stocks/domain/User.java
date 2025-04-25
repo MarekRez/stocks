@@ -10,26 +10,27 @@ import java.math.BigDecimal;
 
 public class User {
     private long id;
-    private String name; // fixme: treba spravit firtname, lastname
+    private String name; // fixme: idealne skor spravit firtname, lastname
     private String email; // unique
     private UserRole role;
-    private InvestmentAccount investmentAccount;
     private BankAccount bankAccount;
+    private InvestmentAccount investmentAccount;
 
     public User(String name, String email, UserRole role) {
         this.name = name;
         this.email = email;
         this.role = role;
-        this.investmentAccount = new InvestmentAccount();
         this.bankAccount = new BankAccount();
+        this.investmentAccount = new InvestmentAccount();
+
     }
 
     public User(String name, String email, UserRole role, BigDecimal balance) {
         this.name = name;
         this.email = email;
         this.role = role;
-        this.investmentAccount = new InvestmentAccount();
         this.bankAccount = new BankAccount(balance);
+        this.investmentAccount = new InvestmentAccount();
     }
 
     public  User() {}

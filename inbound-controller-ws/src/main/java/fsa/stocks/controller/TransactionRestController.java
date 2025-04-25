@@ -24,8 +24,8 @@ public class TransactionRestController implements TransactionsApi {
     private final CurrentUserDetailService currentUserDetailService;
 
     public TransactionRestController(TransactionMapper transactionMapper,
-                                      TransactionFacade transactionFacade,
-                                      CurrentUserDetailService currentUserDetailService) {
+                                     TransactionFacade transactionFacade,
+                                     CurrentUserDetailService currentUserDetailService) {
         this.transactionMapper = transactionMapper;
         this.transactionFacade = transactionFacade;
         this.currentUserDetailService = currentUserDetailService;
@@ -34,14 +34,13 @@ public class TransactionRestController implements TransactionsApi {
     @Override
     @Secured("ROLE_ADMIN")
     public ResponseEntity<List<TransactionDto>> listTransactions() {
-        return currentUserDetailService.getFullCurrentUser()
-                .map(user -> {
-                    List<Transaction> transactions = transactionFacade.findByUser(user);
-                    List<TransactionDto> transactionDtos = transactions.stream()
-                            .map(transactionMapper::toDto)
-                            .collect(Collectors.toList());
-                    return ResponseEntity.ok(transactionDtos);
-                })
-                .orElseGet(() -> ResponseEntity.ok(Collections.emptyList()));
+        User user = currentUserDetailService.getFullCurrentUser();
+        List<TransactionDto> dtos = transactionFacade
+                .findByUser(user)
+                .stream()
+                .map(transactionMapper::toDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
     }
 }

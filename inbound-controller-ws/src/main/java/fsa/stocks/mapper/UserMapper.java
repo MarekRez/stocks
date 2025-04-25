@@ -29,9 +29,18 @@ public interface UserMapper {
         }
         // read the role out of the DTO, map the enum, and let the constructor wire up accounts
         UserRole role = UserRole.valueOf(dto.getRole().name());
-        BigDecimal initBal = dto.getBankAccountBalance();
-        return new User(dto.getName(), dto.getEmail(), role, initBal);
+        BigDecimal initial = dto.getBankAccountBalance();
+
+        if (initial != null) {
+            // client specified a starting balance
+            return new User(dto.getName(), dto.getEmail(), role, initial);
+        } else {
+            // no initial balance → use your no-arg ctor which
+            // sets the default (10 000) in your BankAccount()
+            return new User(dto.getName(), dto.getEmail(), role);
+        }
     }
+
     User toEntity(UserDto dto);
 
     // Converts a domain User to a ClientModelDto

@@ -4,6 +4,7 @@ import fsa.stocks.domain.User;
 import fsa.stocks.domain.service.UserFacade;
 import fsa.stocks.rest.dto.UserDto;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,16 +28,21 @@ public class CurrentUserDetailService {
         throw new IllegalStateException("Current user is not of type UserDto.");
     }
 
-    public Long getUserId() {
-        return getCurrentUser().getId();
-    }
-
     public String getUserEmail() {
         return getCurrentUser().getEmail();
     }
 
-    public Optional<User> getFullCurrentUser() {
-        return userFacade.get(getUserEmail());
+    public User getFullCurrentUser() {
+        return (userFacade.get(getUserEmail())
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "No local user for email " + getUserEmail()
+                )));
     }
 
+    /**
+     * Returns the database‐generated user ID as a primitive long.
+     */
+    public long getUserId() {
+        return getFullCurrentUser().getId();
+    }
 }

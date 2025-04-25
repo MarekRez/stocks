@@ -26,13 +26,13 @@
                 <convert converter="fsa.stocks.jpa.converter.UserRoleConverter"/>
 
             </basic>
-            <one-to-one name="investmentAccount" target-entity="fsa.stocks.domain.InvestmentAccount" fetch="LAZY">
+            <one-to-one name="investmentAccount" target-entity="fsa.stocks.domain.InvestmentAccount" fetch="EAGER">
                 <join-column name="investment_account_id" referenced-column-name="id"/>
                 <cascade>
                     <cascade-all/>
                 </cascade>
             </one-to-one>
-            <one-to-one name="bankAccount" target-entity="fsa.stocks.domain.BankAccount" fetch="LAZY">
+            <one-to-one name="bankAccount" target-entity="fsa.stocks.domain.BankAccount" fetch="EAGER">
                 <join-column name="bank_account_id" referenced-column-name="iban"/>
                 <cascade>
                     <cascade-all/>

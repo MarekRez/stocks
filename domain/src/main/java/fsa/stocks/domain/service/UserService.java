@@ -1,14 +1,8 @@
 package fsa.stocks.domain.service;
-
-import fsa.stocks.domain.BankAccount;
-import fsa.stocks.domain.InvestmentAccount;
-import fsa.stocks.domain.Portfolio;
 import fsa.stocks.domain.User;
 import fsa.stocks.domain.exception.UserNotFoundException;
 import fsa.stocks.domain.repository.UserRepository;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

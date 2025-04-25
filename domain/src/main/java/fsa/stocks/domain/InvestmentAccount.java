@@ -1,6 +1,10 @@
 package fsa.stocks.domain;
 
+import fsa.stocks.domain.exception.InsufficientFundsException;
+import fsa.stocks.domain.exception.InvalidAmountException;
+
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * Represents a user’s investment account, which holds a Portfolio.
@@ -12,15 +16,19 @@ public class InvestmentAccount implements Account {
     private Portfolio portfolio;
 
     public InvestmentAccount() {
-//        this.balance = BigDecimal.ZERO;
-        this.balance = new BigDecimal(0);
-        this.portfolio = new Portfolio();
+        this(BigDecimal.ZERO, new Portfolio());
+    }
+
+    public InvestmentAccount(BigDecimal initialBalance, Portfolio portfolio) {
+        this.balance   = initialBalance != null ? initialBalance : BigDecimal.ZERO;
+        this.portfolio = portfolio != null ? portfolio : new Portfolio();
     }
 
     public Long getId() {
         return id;
     }
 
+    @Override
     public BigDecimal getBalance() {
         return balance;
     }
@@ -42,14 +50,32 @@ public class InvestmentAccount implements Account {
         this.portfolio = portfolio;
     }
 
+    //    ONLY ADDING MONEY, REST IS IN SERVICE
     @Override
     public void deposit(BigDecimal amount) {
-        // TODO implement
+        validateAmount(amount);
+        balance = balance.add(amount);
     }
 
+    //    ONLY REMOVING MONEY, REST IS IN SERVICE
     @Override
     public void withdraw(BigDecimal amount) {
-        // TODO implement
+        validateAmount(amount);
+        if (balance.compareTo(amount) < 0) {
+            throw new InsufficientFundsException(
+                    "Cannot withdraw " + amount + " from investment account – balance is only " + balance);
+        }
+        balance = balance.subtract(amount);
+    }
+
+    private void validateAmount(BigDecimal amount) {
+        if (amount == null) {
+            throw new InvalidAmountException("Amount cannot be null");
+        }
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidAmountException(
+                    "Amount must be greater than zero, was: " + amount);
+        }
     }
 
     public void buyStock(Stock stock, BigDecimal amount) {
