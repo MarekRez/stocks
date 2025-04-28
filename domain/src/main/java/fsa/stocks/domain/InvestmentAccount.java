@@ -78,11 +78,24 @@ public class InvestmentAccount implements Account {
         }
     }
 
+    /**
+     * Buy stock using money already in the investment account.
+     * Throws if insufficient funds or invalid amount.
+     */
     public void buyStock(Stock stock, BigDecimal amount) {
-        // TODO implement
+        // ensure there is enough money
+        withdraw(amount);
+        portfolio.addInvestment(stock, amount);
     }
 
-    public void sellStock(Stock stock, BigDecimal amount) {
-        // TODO implement
+    /**
+     * Sell some shares back into cash.
+     * Returns the cash proceeds, which the caller can deposit back to the bank.
+     */
+    public BigDecimal sellStock(Stock stock, double shares) {
+        BigDecimal proceeds = portfolio.removeInvestment(stock, shares);
+        // put the cash back in the investment balance
+        deposit(proceeds);
+        return proceeds;
     }
 }

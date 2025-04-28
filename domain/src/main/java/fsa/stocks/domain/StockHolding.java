@@ -33,4 +33,19 @@ public class StockHolding {
     public void setStock(Stock stock) {
         this.stock = stock;
     }
+
+
+    void addShares(double shares) {
+        if (shares < 0 || shares + this.sharesOwned < 0) {
+            throw new IllegalArgumentException("Cannot add negative shares");
+        }
+        this.sharesOwned += shares;
+    }
+
+    void removeShares(double shares) {
+        if (shares > this.sharesOwned) {
+            throw new IllegalArgumentException("Cannot remove more shares than owned");
+        }
+        this.sharesOwned -= shares;
+    }
 }

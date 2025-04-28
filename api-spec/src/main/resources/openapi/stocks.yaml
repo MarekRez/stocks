@@ -5,6 +5,7 @@ info:
   description: API for managing stock investments, fund transfers, and portfolio simulations.
 servers:
   - url: http://localhost:8080/api
+#...........................................................
 paths:
   /users:
     post:
@@ -184,7 +185,7 @@ paths:
                 $ref: '#/components/schemas/Stock'
         '404':
           description: Stock not found
-
+#...........................................................
   /transactions:
     get:
       summary: List transactions for a user
@@ -200,20 +201,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Transaction'
-#    post:
-#      summary: Record a new transaction (buy, sell, deposit, withdrawal)
-#      operationId: createTransaction
-#      tags:
-#        - Transaction
-#      requestBody:
-#        required: true
-#        content:
-#          application/json:
-#            schema:
-#              $ref: '#/components/schemas/Transaction'
-#      responses:
-#        '201':
-#          description: Transaction recorded
+#...........................................................
   /portfolio:
     get:
       summary: Get the portfolio details for a user
@@ -332,8 +320,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Transaction'
+  /investment/buy:
+    post:
+      summary: Buy shares of a stock
+      operationId: buyStock
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyRequest'
+      responses:
+        '200':
+          description: Recorded BUY transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+  /investment/sell:
+    post:
+      summary: Sell shares of a stock
+      operationId: sellStock
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellRequest'
+      responses:
+        '200':
+          description: Recorded SELL transaction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+#...........................................................
 components:
   schemas:
+#...........................................................
+    BuyRequest:
+      type: object
+      required: [ symbol, amount ]
+      properties:
+        symbol:
+            $ref: '#/components/schemas/StockSymbol'
+        amount:
+          type: number
+          format: double
+          description: Money to invest in this stock
+    SellRequest:
+      type: object
+      required: [ symbol, shares ]
+      properties:
+        symbol:
+            $ref: '#/components/schemas/StockSymbol'
+        shares:
+          type: number
+          format: double
+          description: Number of shares to sell
+#...........................................................
     Amount:
       type: object
       properties:
@@ -343,6 +386,7 @@ components:
           description: The amount to deposit or withdraw; must be greater than zero
       required:
         - amount
+#...........................................................
     ClientModel:
       type: object
       properties:
@@ -380,6 +424,7 @@ components:
         - iban
         - bankAccountBalance
         - investmentAccountBalance
+#...........................................................
     User:
       type: object
       properties:
@@ -396,6 +441,7 @@ components:
           $ref: '#/components/schemas/InvestmentAccount'
         bankAccount:
           $ref: '#/components/schemas/BankAccount'
+#...........................................................
     CreateUserRequest:
       type: object
       required:
@@ -412,11 +458,13 @@ components:
         bankAccountBalance:
           type: number
           format: bigDecimal
+#...........................................................
     UserRole:
       type: string
       enum:
         - USER
         - ADMIN
+#...........................................................
     BankAccount:
       type: object
       properties:
@@ -425,6 +473,7 @@ components:
         balance:
           type: number
           format: double
+#...........................................................
     InvestmentAccount:
       type: object
       properties:
@@ -436,6 +485,7 @@ components:
           format: double
         portfolio:
           $ref: '#/components/schemas/Portfolio'
+#...........................................................
     Portfolio:
       type: object
       properties:
@@ -446,6 +496,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StockHolding'
+#...........................................................
     StockHolding:
       type: object
       properties:
@@ -457,6 +508,7 @@ components:
           format: double
         stock:
           $ref: '#/components/schemas/Stock'
+#...........................................................
     Stock:
       type: object
       properties:
@@ -479,6 +531,7 @@ components:
         expectedReturn:
           type: number
           format: double
+#...........................................................
     Transaction:
       type: object
       properties:
@@ -497,6 +550,7 @@ components:
           $ref: '#/components/schemas/User'
         stock:
           $ref: '#/components/schemas/Stock'
+#...........................................................
     TransactionType:
       type: string
       enum:
@@ -504,6 +558,19 @@ components:
         - SELL
         - DEPOSIT
         - WITHDRAWAL
+#...........................................................
+    StockSymbol:
+      type: string
+      description: The stock symbol (e.g., AAPL, GOOGL)
+      enum:
+        - AAPL
+        - GOOGL
+        - MSFT
+        - TSLA
+        - AMZN
+        - META
+        - NFLX
+#...........................................................
     SimulationRequest:
       type: object
       required:
@@ -515,6 +582,7 @@ components:
           format: int64
         months:
           type: integer
+#...........................................................
     SimulationResult:
       type: object
       properties:
@@ -523,3 +591,4 @@ components:
           format: double
         details:
           type: string
+#...........................................................

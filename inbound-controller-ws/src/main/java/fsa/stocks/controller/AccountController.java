@@ -1,11 +1,15 @@
 package fsa.stocks.controller;
 
 import fsa.stocks.domain.Transaction;
+import fsa.stocks.domain.enums.StockSymbol;
 import fsa.stocks.domain.service.AccountFacade;
+import fsa.stocks.domain.service.PortfolioFacade;
 import fsa.stocks.mapper.TransactionMapper;
 import fsa.stocks.rest.api.BankApi;
 import fsa.stocks.rest.api.InvestmentApi;
 import fsa.stocks.rest.dto.AmountDto;
+import fsa.stocks.rest.dto.BuyRequestDto;
+import fsa.stocks.rest.dto.SellRequestDto;
 import fsa.stocks.rest.dto.TransactionDto;
 import fsa.stocks.security.oauth2_jwt.CurrentUserDetailService;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +21,14 @@ import java.math.BigDecimal;
 public class AccountController implements BankApi, InvestmentApi {
 
     private final AccountFacade accountFacade;
+    private final PortfolioFacade portfolioFacade;
     private final CurrentUserDetailService currentUser;
     private final TransactionMapper transactionMapper;
 
-    public AccountController(AccountFacade accountFacade, CurrentUserDetailService currentUser, TransactionMapper transactionMapper) {
+    public AccountController(AccountFacade accountFacade, PortfolioFacade portfolioFacade,
+                             CurrentUserDetailService currentUser, TransactionMapper transactionMapper) {
         this.accountFacade = accountFacade;
+        this.portfolioFacade = portfolioFacade;
         this.currentUser = currentUser;
         this.transactionMapper = transactionMapper;
     }
@@ -53,4 +60,20 @@ public class AccountController implements BankApi, InvestmentApi {
         Transaction tx = accountFacade.withdrawFromInvestment(userId, BigDecimal.valueOf(dto.getAmount()));
         return ResponseEntity.ok(transactionMapper.toDto(tx));
     }
+
+    @Override
+    public ResponseEntity<TransactionDto> buyStock(BuyRequestDto dto) {
+        long uid = currentUser.getUserId();
+        Transaction tx = portfolioFacade.buyStock(uid, StockSymbol.valueOf(dto.getSymbol().name()), BigDecimal.valueOf(dto.getAmount()));
+        return ResponseEntity.ok(transactionMapper.toDto(tx));
+    }
+
+    @Override
+    public ResponseEntity<TransactionDto> sellStock(SellRequestDto dto) {
+        long uid = currentUser.getUserId();
+        Transaction tx = portfolioFacade.sellStock(uid, StockSymbol.valueOf(dto.getSymbol().name()),
+                dto.getShares());
+        return ResponseEntity.ok(transactionMapper.toDto(tx));
+    }
+
 }
