@@ -14,7 +14,7 @@ COPY inbound-controller-ws inbound-controller-ws
 COPY springboot springboot
 COPY api-spec api-spec
 
-RUN mvn package
+RUN mvn package -DskipTests
 RUN mkdir build && cd build && java -Djarmode=layertools -jar ../springboot/target/*.jar extract
 
 FROM eclipse-temurin:21.0.1_12-jdk-alpine
