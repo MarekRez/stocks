@@ -48,3 +48,13 @@ logging:
 #    org:
 #        springframework:
 #            security: TRACE
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

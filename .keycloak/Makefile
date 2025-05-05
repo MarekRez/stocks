@@ -4,6 +4,10 @@
 
 IMAGE := fsa-keycloak
 TAG := 23.0
+ACR := fsareznyregistry.azurecr.io
+ACR_USER := fsareznyregistry
+ACR_PASSWORD := /egAuM9el7LLSe3t8S74Sqq9Ddu1sPLuzjzjCKIcPy+ACRAOAamd
+
 
 .PHONY:
 build-local:
