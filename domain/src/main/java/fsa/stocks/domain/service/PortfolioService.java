@@ -1,9 +1,6 @@
 package fsa.stocks.domain.service;
 
-import fsa.stocks.domain.Stock;
-import fsa.stocks.domain.Transaction;
-import fsa.stocks.domain.TransactionFactory;
-import fsa.stocks.domain.User;
+import fsa.stocks.domain.*;
 import fsa.stocks.domain.enums.StockSymbol;
 import fsa.stocks.domain.enums.TransactionType;
 import fsa.stocks.domain.repository.StockRepository;
@@ -11,6 +8,7 @@ import fsa.stocks.domain.repository.TransactionRepository;
 import fsa.stocks.domain.repository.UserRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 //    @Transactional should be later implemented in the spring layer somehow, Lord only knows how
@@ -62,6 +60,14 @@ public class PortfolioService implements PortfolioFacade{
 
         userRepository.update(user);
         return tx;
+    }
+
+    @Override
+    public List<StockHolding> getHoldingsForUser(Long userId) {
+        User user = loadUser(userId);
+        return user.getInvestmentAccount()
+                .getPortfolio()
+                .getHoldings();
     }
 
     private User loadUser(Long id) {

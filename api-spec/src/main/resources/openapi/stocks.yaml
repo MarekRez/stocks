@@ -202,26 +202,22 @@ paths:
                 items:
                   $ref: '#/components/schemas/Transaction'
 #...........................................................
-  /portfolio:
+  /investment/holdings:
     get:
-      summary: Get the portfolio details for a user
-      operationId: getPortfolio
+      summary: Get current user's stock holdings
+      operationId: getPortfolioHoldings
       tags:
         - Portfolio
-      parameters:
-        - name: userId
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
         '200':
-          description: Portfolio details
+          description: Array of stock holdings
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Portfolio'
+                type: array
+                items:
+                  $ref: '#/components/schemas/StockHolding'
+
   /simulate:
     post:
       summary: Run a simulation on the user's portfolio
