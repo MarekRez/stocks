@@ -85,8 +85,4 @@ public class User {
         this.bankAccount = bankAccount;
     }
 
-//    public Portfolio viewPortfolio() {
-//        // TODO implement
-//        return null;
-//    }
 }

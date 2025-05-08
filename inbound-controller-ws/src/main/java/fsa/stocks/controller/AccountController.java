@@ -84,9 +84,6 @@ public class AccountController implements BankApi, InvestmentApi {
     public ResponseEntity<List<StockHoldingDto>> getPortfolioHoldings() {
         long uid = currentUser.getUserId();
         List<StockHolding> holdings = portfolioFacade.getHoldingsForUser(uid);
-        if (holdings.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
         List<StockHoldingDto> dtos = holdings.stream()
                 .map(stockHoldingMapper::toDto)
                 .collect(Collectors.toList());
