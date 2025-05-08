@@ -1,5 +1,7 @@
 server:
   port: 8080
+  servlet:
+    context-path: /api # /api because of ingress mapping
   ssl:
     enabled: false
     key-store: classpath:keystore.p12

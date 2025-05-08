@@ -5,6 +5,7 @@ info:
   description: API for managing stock investments, fund transfers, and portfolio simulations.
 servers:
   - url: http://localhost:8080/api
+# - url: http://20.166.52.164/api
 #...........................................................
 paths:
   /users:
