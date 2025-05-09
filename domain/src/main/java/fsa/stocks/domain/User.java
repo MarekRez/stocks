@@ -10,14 +10,14 @@ import java.math.BigDecimal;
 
 public class User {
     private long id;
-    private String name; // fixme: idealne skor spravit firtname, lastname
+    private String username;
     private String email; // unique
     private UserRole role;
     private BankAccount bankAccount;
     private InvestmentAccount investmentAccount;
 
-    public User(String name, String email, UserRole role) {
-        this.name = name;
+    public User(String username, String email, UserRole role) {
+        this.username = username;
         this.email = email;
         this.role = role;
         this.bankAccount = new BankAccount();
@@ -25,8 +25,8 @@ public class User {
 
     }
 
-    public User(String name, String email, UserRole role, BigDecimal balance) {
-        this.name = name;
+    public User(String username, String email, UserRole role, BigDecimal balance) {
+        this.username = username;
         this.email = email;
         this.role = role;
         this.bankAccount = new BankAccount(balance);
@@ -40,8 +40,8 @@ public class User {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     public String getEmail() {
@@ -65,8 +65,8 @@ public class User {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setEmail(String email) {

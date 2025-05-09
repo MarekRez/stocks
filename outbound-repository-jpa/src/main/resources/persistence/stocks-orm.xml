@@ -14,7 +14,7 @@
             <id name="id">
                 <generated-value strategy="IDENTITY"/>
             </id>
-            <basic name="name">
+            <basic name="username">
                 <column name="name" nullable="false"/>
             </basic>
             <basic name="email">
