@@ -18,7 +18,7 @@ public interface UserMapper {
     // Converts a CreateUserRequestDto to a domain User
     /**
      * We ignore id/bankAccount/investmentAccount here on purpose,
-     * because we want the User constructor to build those for us.
+     * because the User constructor to build those for us.
      */
     @Mapping(target = "id",                ignore = true)
     @Mapping(target = "bankAccount",       ignore = true)
@@ -29,15 +29,15 @@ public interface UserMapper {
         }
         // read the role out of the DTO, map the enum, and let the constructor wire up accounts
         UserRole role = UserRole.valueOf(dto.getRole().name());
-        BigDecimal initial = dto.getBankAccountBalance();
+        BigDecimal initial = (dto.getBankAccountBalance());
 
         if (initial != null) {
             // client specified a starting balance
-            return new User(dto.getName(), dto.getEmail(), role, initial);
+            return new User(dto.getUsername(), dto.getEmail(), role, initial);
         } else {
             // no initial balance → use your no-arg ctor which
             // sets the default (10 000) in your BankAccount()
-            return new User(dto.getName(), dto.getEmail(), role);
+            return new User(dto.getUsername(), dto.getEmail(), role);
         }
     }
 

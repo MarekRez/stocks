@@ -219,10 +219,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/StockHolding'
 
-  /simulate:
+  /portfolio/simulate:
     post:
-      summary: Run a simulation on the user's portfolio
-      operationId: simulatePortfolio
+      summary: Run & apply N-month simulation and return summary
+      operationId: simulateAndApplyPortfolio
       tags:
         - Simulation
       requestBody:
@@ -237,7 +237,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimulationResult'
+                $ref: '#/components/schemas/SimulationResponse'
   /bank/deposit:
     post:
       summary: Deposit money into the user’s bank account
@@ -428,7 +428,7 @@ components:
         id:
           type: integer
           format: int64
-        name:
+        username:
           type: string
         email:
           type: string
@@ -446,7 +446,7 @@ components:
         - email
         - role
       properties:
-        name:
+        username:
           type: string
         email:
           type: string
@@ -454,7 +454,6 @@ components:
           $ref: '#/components/schemas/UserRole'
         bankAccountBalance:
           type: number
-          format: bigDecimal
 #...........................................................
     UserRole:
       type: string
@@ -518,7 +517,7 @@ components:
           type: string
         currentPrice:
           type: number
-          format: BigDecimal
+          format: double
         volatility:
           type: number
           format: double
@@ -571,21 +570,20 @@ components:
     SimulationRequest:
       type: object
       required:
-        - userId
         - months
       properties:
-        userId:
-          type: integer
-          format: int64
         months:
           type: integer
+          format: int32
+          description: Number of months to simulate
 #...........................................................
-    SimulationResult:
+    SimulationResponse:
       type: object
       properties:
-        portfolioValue:
+        startBalance:
           type: number
-          format: double
-        details:
-          type: string
+        finalBalance:
+          type: number
+        difference:
+          type: number
 #...........................................................

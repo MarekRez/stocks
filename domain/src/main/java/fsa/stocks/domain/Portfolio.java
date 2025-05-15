@@ -39,10 +39,9 @@ public class Portfolio {
     public BigDecimal getTotalValue() {
         return holdings.stream()
                 .map(holding -> {
-                    BigDecimal currentPrice = holding.getStock().getCurrentPrice();
-                    return currentPrice != null
-                            ? currentPrice.multiply(BigDecimal.valueOf(holding.getSharesOwned()))
-                            : BigDecimal.ZERO;
+                    BigDecimal price = holding.getStock().getCurrentPrice();
+                    BigDecimal shares = BigDecimal.valueOf(holding.getSharesOwned());
+                    return price.multiply(shares);
                 })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }

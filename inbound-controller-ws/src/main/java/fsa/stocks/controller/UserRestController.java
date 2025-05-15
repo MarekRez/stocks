@@ -76,7 +76,7 @@ public class UserRestController implements UsersApi {
         return ResponseEntity.ok().body(clientModels);
     }
 
-    // fix: UpdateUserRequestDto instead of CreateUserRequestDto
+    // fix: maybe UpdateUserRequestDto instead of CreateUserRequestDto
     @Override
     @Secured("ROLE_ADMIN")
     public ResponseEntity<UserDto> updateUser(Long id, CreateUserRequestDto createUserRequestDto) {

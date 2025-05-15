@@ -86,6 +86,10 @@
                                 <openApiNullable>false</openApiNullable>
                                 <!-- No additional documentation -->
                                 <documentationProvider>none</documentationProvider>
+
+                                <!-- VERY IMPORTANT -->
+                                <useBigDecimal>true</useBigDecimal>
+
                             </configOptions>
                         </configuration>
                     </execution>

@@ -1,5 +1,8 @@
 package fsa.stocks.domain;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * A specific stock holding in a user’s portfolio.
  */
@@ -35,17 +38,32 @@ public class StockHolding {
     }
 
 
-    void addShares(double shares) {
+    public void addShares(double shares) {
         if (shares < 0 || shares + this.sharesOwned < 0) {
             throw new IllegalArgumentException("Cannot add negative shares");
         }
-        this.sharesOwned += shares;
+        this.sharesOwned = round(this.sharesOwned + shares);
     }
 
     void removeShares(double shares) {
-        if (shares > this.sharesOwned) {
-            throw new IllegalArgumentException("Cannot remove more shares than owned");
+        if (shares < 0) {
+            throw new IllegalArgumentException("Cannot remove negative shares");
         }
-        this.sharesOwned -= shares;
+        double owned   = round(this.sharesOwned);
+        double removal = round(shares);
+
+        if (removal > owned) {
+            throw new IllegalArgumentException(
+                    "Cannot remove " + removal + " shares; only " + owned + " available"
+            );
+        }
+        this.sharesOwned = round(owned - removal);
+    }
+
+    /** Always rounds a raw double to 2 decimal places (HALF_UP). */
+    private static double round(double val) {
+        return BigDecimal.valueOf(val)
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
     }
 }

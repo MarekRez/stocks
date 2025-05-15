@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(componentModel = "spring")
-
 public interface StockHoldingMapper {
     @Mapping(target = "id", ignore = true)
     StockHoldingDto toDto(StockHolding stockHolding);

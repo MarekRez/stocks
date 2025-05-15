@@ -15,7 +15,7 @@
                 <generated-value strategy="IDENTITY"/>
             </id>
             <basic name="username">
-                <column name="name" nullable="false"/>
+                <column name="username" nullable="false"/>
             </basic>
             <basic name="email">
                 <column name="email" nullable="false" unique="true"/>
@@ -128,6 +128,12 @@
             <!-- Then relationship mappings -->
             <many-to-one name="user" target-entity="fsa.stocks.domain.User" fetch="LAZY" optional="false">
                 <join-column name="user_id" referenced-column-name="id" nullable="false"/>
+                <foreign-key name="fk_transaction_user"
+                             foreign-key-definition="
+                            FOREIGN KEY (user_id)
+                            REFERENCES user_system(id)
+                            ON DELETE CASCADE
+                         "/> <!-- FIXME: THIS DOESNT WORK FOR SOME REASON, I did this manually in psql bash -->
             </many-to-one>
             <many-to-one name="stock" target-entity="fsa.stocks.domain.Stock" fetch="LAZY" optional="true">
                 <join-column name="stock_id" referenced-column-name="id" nullable="true"/>
