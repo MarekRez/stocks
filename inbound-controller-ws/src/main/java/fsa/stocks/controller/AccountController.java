@@ -12,6 +12,7 @@ import fsa.stocks.rest.api.InvestmentApi;
 import fsa.stocks.rest.dto.*;
 import fsa.stocks.security.oauth2_jwt.CurrentUserDetailService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
@@ -38,6 +39,7 @@ public class AccountController implements BankApi, InvestmentApi {
     }
 
     @Override
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<TransactionDto> depositToBank(AmountDto dto) {
         long userId = currentUser.getUserId();
         Transaction tx = accountFacade.depositToBank(userId, BigDecimal.valueOf(dto.getAmount()));
@@ -45,6 +47,7 @@ public class AccountController implements BankApi, InvestmentApi {
     }
 
     @Override
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<TransactionDto> withdrawFromBank(AmountDto dto) {
         long userId = currentUser.getUserId();
         Transaction tx = accountFacade.withdrawFromBank(userId, BigDecimal.valueOf(dto.getAmount()));
