@@ -17,8 +17,8 @@ public interface UserMapper {
 
     // Converts a CreateUserRequestDto to a domain User
     /**
-     * We ignore id/bankAccount/investmentAccount here on purpose,
-     * because the User constructor to build those for us.
+     * I ignore id/bankAccount/investmentAccount here on purpose,
+     * because the User constructor builds those.
      */
     @Mapping(target = "id",                ignore = true)
     @Mapping(target = "bankAccount",       ignore = true)
@@ -36,7 +36,7 @@ public interface UserMapper {
             return new User(dto.getUsername(), dto.getEmail(), role, initial);
         } else {
             // no initial balance → use your no-arg ctor which
-            // sets the default (10 000) in your BankAccount()
+            // sets the default (10 000) in BankAccount()
             return new User(dto.getUsername(), dto.getEmail(), role);
         }
     }

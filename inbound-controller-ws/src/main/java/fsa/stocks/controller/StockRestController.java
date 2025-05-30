@@ -35,8 +35,8 @@ public class StockRestController implements StocksApi {
         List<Stock> stocks = stockFacade.listAll();
         List<StockDto> dtos = stocks.stream().map(stockMapper::toDto).collect(Collectors.toList());
         return new ResponseEntity<>(dtos, HttpStatus.OK);
-        //or return allDiscussionMessages != null ?
-        //                ResponseEntity.ok().body(allDiscussionMessages.stream().map(discussionMessageMapper::toDto).toList()) :
+        //or return stocks != null ?
+        //                ResponseEntity.ok().body(stocks.stream().map(stockMapper::toDto).toList()) :
         //                ResponseEntity.ok().body(Collections.emptyList());
     }
 

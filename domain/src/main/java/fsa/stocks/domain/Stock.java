@@ -90,19 +90,4 @@ public class Stock {
         this.expectedReturn = expectedReturn;
     }
 
-    public void updatePrice() {
-        // TODO implement
-    }
-
-    private void simulatePriceChange() {
-        // TODO implement
-    }
-
-    private void reinvestDividends() {
-        // TODO implement
-    }
-
-    private void simulateMonth() {
-        // TODO implement
-    }
 }
